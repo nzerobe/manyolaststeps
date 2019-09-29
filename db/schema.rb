@@ -10,17 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_14_065043) do
+ActiveRecord::Schema.define(version: 2019_09_29_103732) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "blogs", force: :cascade do |t|
-    t.string "title"
-    t.text "content"
+    t.string "title", limit: 140, null: false
+    t.text "content", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.date "deadline"
+    t.integer "status", default: 0, null: false
+    t.index ["status"], name: "index_blogs_on_status"
+    t.index ["title"], name: "index_blogs_on_title"
   end
 
   create_table "users", force: :cascade do |t|

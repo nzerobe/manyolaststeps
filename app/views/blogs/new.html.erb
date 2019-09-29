@@ -30,6 +30,12 @@
         <%= form.label :"EXP" %>
         <%= form.date_field :deadline, id: :blog_deadline, class:"form-control" %>
       </div>
+      <div class="control-group form-group">
+      <div class="controls">
+        <%= form.label :"Status" %>
+        <%= form.select :status, Blog.statuses.keys, id: :status, class:"form-control" %>
+      </div>
+     
     </div>
  <div class="actions">
     <%= form.submit class:"btn btn-primary", id:"sendMessageButton"%>

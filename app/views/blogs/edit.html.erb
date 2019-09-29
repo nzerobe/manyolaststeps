@@ -11,7 +11,7 @@
     </div>
   <% end %>
 
- div class="control-group form-group">
+ 
       <div class="controls">
         <%= form.label :"Title" %>
         <%= form.text_field :title, id: :blog_title, class:"form-control"%>
@@ -30,6 +30,13 @@
         <%= form.label :"EXP" %>
         <%= form.date_field :deadline, id: :blog_deadline, class:"form-control" %>
       </div>
+    </div>
+ <div class="control-group form-group">
+      <div class="controls">
+        <%= form.label :"Status" %>
+        <%= form.select :status, Blog.statuses.keys, id: :status, class:"form-control" %>
+      </div>
+     
     </div>
  <div class="actions">
     <%= form.submit class:"btn btn-primary", id:"sendMessageButton"%>
