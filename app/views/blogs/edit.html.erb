@@ -1,0 +1,40 @@
+<%= form_with(model: @blogs, local: true) do |form| %>
+  <% if @blogs.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= @blogs.errors.count %>errors occurred.</h2>
+      <ul>
+
+      <% @blogs.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+ div class="control-group form-group">
+      <div class="controls">
+        <%= form.label :"Title" %>
+        <%= form.text_field :title, id: :blog_title, class:"form-control"%>
+      </div>
+    </div>
+
+    <div class="control-group form-group">
+      <div class="controls">
+        <%= form.label :"Content" %>
+        <%= form.text_area :content, id: :blog_content, class:"form-control" %>
+      </div>
+    </div>
+
+    <div class="control-group form-group">
+      <div class="controls">
+        <%= form.label :"EXP" %>
+        <%= form.date_field :deadline, id: :blog_deadline, class:"form-control" %>
+      </div>
+    </div>
+ <div class="actions">
+    <%= form.submit class:"btn btn-primary", id:"sendMessageButton"%>
+  </div>
+<% end %>
+
+<%= link_to "Return to List of duffs screen", blogs_path %>
+<%= t('blog.index') %>

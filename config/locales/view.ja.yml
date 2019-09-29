@@ -1,0 +1,9 @@
+ja:
+  view:
+    blog: タスク
+    index: 一覧
+    detail: 詳細
+    blogtitle: タスク名
+    create: 新規作成
+    edit: 編集
+    blogdetail: タスク詳細
