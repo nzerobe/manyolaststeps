@@ -56,5 +56,37 @@ end
     expect(page).to have_content '2019'
   end
   
+   scenario "Blog search execution test by title" do
+    visit root_path
+    fill_in 'title', with: '01'
+    click_on 'search'
+    expect(page).to have_content 'samplesample'
+
+  end
+
+  scenario "Blog search execution test by status" do
+    visit root_path
+    fill_in 'title', with: ''
+    select 'Off', from: 'status'
+    click_on 'search'
+    expect(page).to have_content 'samplesample'
+
+  end
+
+  scenario "Blog search execution test by title and status " do
+    visit root_path
+    fill_in 'title', with: 'test_'
+    select 'Off', from: 'status'
+    click_on 'search'
+    expect(page).to have_content 'samplesample'
+
+  end
+
+  scenario "Priority descending sort test " do
+    visit root_path
+    click_on 'Sort in order of priority'
+     expect(Blog.order("priority ASC").each)
+  end
+
   
 end

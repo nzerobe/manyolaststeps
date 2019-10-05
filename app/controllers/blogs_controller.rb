@@ -1,22 +1,24 @@
 class BlogsController < ApplicationController
   before_action :set_blog, only: [:show, :edit, :update, :destroy] 
-#   PER = 25
+ PER = 9
    
   def index 
 #    byebug
     if params[:sort_expired] 
 #     @blogs = Blog.all.sort_deadline.page(params[:page]).per(PER)   
-     @blogs = Blog.page(params[:page]).per(20).order('deadline ASC')
+     @blogs = Blog.page(params[:page]).per(PER).order('deadline ASC')
     elsif
 #     @blogs = Blog.order('created_at DESC')  
-    @blogs = Blog.page(params[:page]).per(20).order('created_at DESC')
+    @blogs = Blog.page(params[:page]).per(PER).order('created_at DESC')
     
     elsif params[:title] && params[:status].present?
-      @blogs = Blog.search_title(params[:title]).search_status(params[:status]).page(params[:page]).per(20)
+      @blogs = Blog.search_title(params[:title]).search_status(params[:status]).page(params[:page]).per(PER)
     elsif params[:status].present?
-      @blogs = Blog.search_status(params[:status]).page(params[:page]).per(20)
+      @blogs = Blog.search_status(params[:status]).page(params[:page]).per(PER)
+       elsif params[:sort_priority].present?
+      @blogs = Blog.sort_priority.page(params[:page]).per(PER)
      else params[:title].present?
-      @blogs = Blog.search_title(params[:title]).page(params[:page]).per(20)
+      @blogs = Blog.search_title(params[:title]).page(params[:page]).per(PER)
      
     end
     
@@ -66,7 +68,7 @@ class BlogsController < ApplicationController
   private
 
    def blog_params
-     params.require(:blog).permit(:title, :content,  :deadline, :expired_at, :status,)
+     params.require(:blog).permit(:title, :content,  :deadline, :expired_at, :status, :priority,)
    end
   
   def set_blog

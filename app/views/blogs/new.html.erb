@@ -35,8 +35,15 @@
         <%= form.label :"Status" %>
         <%= form.select :status, Blog.statuses.keys, id: :status, class:"form-control" %>
       </div>
-     
+     </div>
+      
+      <div class="control-group form-group">
+      <div class="controls">
+        <%= form.label :"Priority" %>
+        <%= form.select :priority, Blog.priorities.keys, id: :priority, class:"form-control" %>
+      </div>
     </div>
+
  <div class="actions">
     <%= form.submit class:"btn btn-primary", id:"sendMessageButton"%>
   </div>

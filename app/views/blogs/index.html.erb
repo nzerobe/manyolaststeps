@@ -3,15 +3,20 @@
 
 
 
-<%= form_with(url: blogs_path, method: :get, local: true) do |form| %>
-  <%= form.label :title_key, 'Title search' %>
-  <%= form.text_field :title %>
-
-   <%= form.label :status_key, 'Status search'%>
-   <%= form.select :status,[["Off", "0"],["Pending","1"],["In motion","2"]], include_blank: true  %>
-   <%= form.hidden_field :search, value: 'true' %>
+<%= form_with(model: Blog.new, url: blogs_path, local: true, method: :get) do |form| %>
+  <div class="border border-primary rounded p-2">
+    <div>
+      <%= form.label :title %>
+      <%= form.text_field :title %>
+    </div>
+    <div>
+      <%= form.label :status %>
+      <%= form.select :status, Blog.statuses.map { |k, v| [t("activerecord.status.#{k}"), v] }
+                                  .unshift([t("activerecord.status.none"), -1]) %>
+    </div>
 
    <%= form.submit 'search' %>
+  </div>
 <% end %>
 
 <% @blogs.each do |blog| %>
@@ -25,6 +30,7 @@
    <p>Content:　<%= blog.content %></p>                    
  <p>Deadline:　<%= blog.deadline %></p>
     <p>Status:　<%= blog.status %></p>
+    <p>Priority:　<%= blog.priority %></p>        
 
    <td><%= link_to 'Check the details', blog_path(blog.id) %></td>
    
@@ -40,10 +46,11 @@
 
   <br>
 <% if params[:search] != "true" %>
- <%= link_to "Sort by expiration ", blogs_path(sort_expired: "true"), class:"btn btn-lg btn-secondary btn-block" %>
+ <%= link_to "Sort by expiration ", blogs_path(sort_expired: "true")  %>
+  <%= link_to "Sort in order of priority", blogs_path(sort_priority: "true") %>
  
 <% else %>
- <%= link_to 'Display all tasks', blogs_path, class:"btn btn-lg btn-secondary btn-block" %>
+ <%= link_to 'Display all blogs', blogs_path %>
 <% end %>
 <br>
 
