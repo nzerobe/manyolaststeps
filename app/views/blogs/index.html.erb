@@ -1,3 +1,4 @@
+<div class="container">
 <h1 class="my-4">List of Posts</h1>
 
 
@@ -18,25 +19,24 @@
    <%= form.submit 'search' %>
   </div>
 <% end %>
+  
+
 
 <% @blogs.each do |blog| %>
  <table>
-<div class="col-lg-4 mb-4">
-        <div class="card h-100">
-          <h4 class="card-header"><%= blog.title %></h4>
-          <div class="card-body">
-            <p class="card-text">
+<%= blog.title %></h4>
+         
  <p>Title:　<%= blog.title %></p> 
    <p>Content:　<%= blog.content %></p>                    
  <p>Deadline:　<%= blog.deadline %></p>
     <p>Status:　<%= blog.status %></p>
     <p>Priority:　<%= blog.priority %></p>        
 
-   <td><%= link_to 'Check the details', blog_path(blog.id) %></td>
+   <td><%= link_to 'Details', blog_path(blog.id) %></td>
    
   
-    <td><%= link_to link_to "Edit this duff", edit_blog_path(blog.id) %></td>
-    <td><%= link_to link_to 'Delete this duff', blog_path(blog.id), method: :delete ,data: {confirm: 'Are you sure?'} %></td>
+    <td><%= link_to link_to "Edit ", edit_blog_path(blog.id) %></td>
+    <td><%= link_to link_to 'Delete ', blog_path(blog.id), method: :delete ,data: {confirm: 'Are you sure?'} %></td>
     
   </tr>
 <% end %>
@@ -53,6 +53,8 @@
  <%= link_to 'Display all blogs', blogs_path %>
 <% end %>
 <br>
-
+<%= paginate @blogs %>
 <%= link_to 'New Post', new_blog_path %>
 <%= t('blog.index') %>
+
+</div>
