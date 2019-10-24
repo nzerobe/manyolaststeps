@@ -8,25 +8,24 @@ class BlogsController < ApplicationController
     if params[:blog] && params[:blog][:search]
       if params[:blog][:title] == "" && params[:blog][:status] == "" 
         redirect_to blogs_path
-       
       elsif params[:blog][:title].present? && params[:blog][:status].present?
 #         @blogs = Blog.title_search(params[:blog][:title]).status_search(params[:blog][:status]).page(params[:page])
-        @blogs = Blog.page(params[:page]).per(3).search_title(params[:blog][:title]).search_status(params[:blog][:status])
-        @blogs = Blog.page(params[:page]).per(3).search_title(params[:blog][:title]).search_status(params[:blog][:status])
+        @blogs = Blog.page(params[:page]).search_title(params[:blog][:title]).search_status(params[:blog][:status]).per(3)
+        @blogs = Blog.page(params[:page]).search_title(params[:blog][:title]).search_status(params[:blog][:status]).per(3)
       elsif params[:blog][:title].present?
 #         @blogs = Blog.title_search(params[:blog][:title]).page(params[:page])
-        @blogs = Blog.page(params[:page]).per(3).search_title(params[:blog][:title])
+        @blogs = Blog.page(params[:page]).search_title(params[:blog][:title]).per(3)
       elsif params[:blog][:status].present?
 #         @blogs = Blog.status_search(params[:blog][:status]).page(params[:page])
 #          @blogs = Blog.search_status(params[:status]).page(params[:page]).per(PER)
-         @blogs =Blog.page(params[:page]).per(3).search_status(params[:blog][:status])
+         @blogs =Blog.page(params[:page]).search_status(params[:blog][:status]).per(3)
        end
     elsif params[:sort_expired]
-       @blogs = Blog.all.sort_deadline.page(params[:page]).per(PER)
+       @blogs = Blog.all.sort_deadline.page(params[:page]).per(3)
     elsif params[:sort_priority]
-      @blogs = Blog.order('priority DESC').page(params[:page])
+      @blogs = Blog.order('priority DESC').page(params[:page]).per(3)
     else
-      @blogs = Blog.all.order('created_at DESC').page(params[:page])
+      @blogs = Blog.all.order('created_at DESC').page(params[:page]).per(3)
 #       @blogs = Kaminari.paginate_array(@blogs).page(params[:page]).per(PER)
 #       @blogs = Blog.order(:last_name).page(params[:page])
     end

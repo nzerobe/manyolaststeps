@@ -6,6 +6,9 @@ ruby '2.6.3'
 gem 'pg', '~> 1.1', '>= 1.1.4'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.3'
+gem 'kaminari'
+gem 'kaminari-bootstrap'
+gem 'bootstrap-sass'
 # Use sqlite3 as the database for Active Record
 group :development, :test do # <<<< :development, not devlopment
   gem 'sqlite3'
@@ -46,7 +49,7 @@ end
 # gem 'capistrano-rails', group: :development
 
 # Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '>= 1.1.0', require: false
+gem 'bootsnap', '>= 1.1.0'
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
@@ -76,8 +79,6 @@ group :development, :test do
     gem 'capybara'
 end
 gem 'will_paginate', '~> 3.1', '>= 3.1.6'
-gem 'kaminari', '~> 0.16.3'
-gem 'kaminari-bootstrap'
 gem 'bootstrap4-kaminari-views', '~> 1.0'
 gem 'pry', '~> 0.12.2'
 group :development, :test do
