@@ -9,19 +9,18 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 <header>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <a class="navbar-brand" href="/">EL Training</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-          aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-  </nav>
-  </header>
+ 
   <body>
       <div class="container">
     <%= yield %>
     </div>
     
+    <footer class="footer text-center">
+      <div class="container">
+        <p class="text-muted">DIVE INTO ROBERT CORP.</p>
+      </div>
+    </footer>
+  </body>
     
   </body>
 </html>

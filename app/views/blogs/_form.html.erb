@@ -1,4 +1,4 @@
-<%= form_with(model: @blogs, local: true) do |form| %>
+<%= form_with(model: @blogs, local: true) do |f| %>
   <% if @blogs.errors.any? %>
     <div id="error_explanation">
       <h2><%= @blogs.errors.count %>errors occurred.</h2>
@@ -11,28 +11,35 @@
     </div>
   <% end %>
 
-  <div class="control-group form-group">
-      <div class="controls">
-        <%= form.label :"TITLE" %>
-        <%= form.text_field :title, id: :blog_title, class:"form-control"%>
-      </div>
-    </div>
-
-    <div class="control-group form-group">
-      <div class="controls">
-        <%= form.label :"CONTENT %>
-        <%= form.text_area :content, id: :blog_content, class:"form-control" %>
-      </div>
-    </div>
-<div class="control-group form-group">
-      <div class="controls">
-        <%= form.label :"EXP" %>
-        <%= form.date_field :deadline, id: :blog_deadline, class:"form-control" %>
-      </div>
-    </div>
- <div class="actions">
-    <%= form.submit class:"btn btn-primary", id:"sendMessageButton"%>
+ 
+  <div class="form">
+    <%= f.label :title %>
+    <%= f.text_field :title,class:'form-control' %>
   </div>
+
+  <div class="form">
+    <%= f.label :content %>
+    <%= f.text_field :content,class:'form-control' %>
+  </div>
+
+  <div class="form">
+    <%= f.label :sort_expired,"Date" %>
+    <%= f.date_field :deadline,class:'form-control' %>
+  </div>
+
+  <div>
+    <%= f.label :status, "Status" %>
+    <%= f.select :status, ['Off','Pending','In motion'],{include_blank: 'Select Box'} %>
+  </div>
+
+  <div>
+    <%= f.label :priority, "Priority" %>
+    <%= f.select :priority, ['Low','Medium','High']%>
+  </div>
+
+ 
+
+  <%= f.submit class:'btn btn-primary btn-block' %>
 <% end %>
 
 <%= link_to "Return to List of duffs screen", blogs_path %>

@@ -1,60 +1,61 @@
-<div class="container">
-<h1 class="my-4">List of Posts</h1>
 
 
+<h1 class="mb-5"><%= t('view.title.Posts.index') %></h1>
 
+ 
+  <%= form_with(model: Blog.new, method: :get, local: true , url: blogs_path) do |f| %>
+  <%= f.label :title_search %>
+  <%= f.text_field :title, class:'form-control' %>
 
-<%= form_with(model: Blog.new, url: blogs_path, local: true, method: :get) do |form| %>
-  <div class="border border-primary rounded p-2">
-    <div>
-      <%= form.label :title %>
-      <%= form.text_field :title %>
-    </div>
-    <div>
-      <%= form.label :status %>
-      <%= form.select :status, Blog.statuses.map { |k, v| [t("activerecord.status.#{k}"), v] }
-                                  .unshift([t("activerecord.status.none"), -1]) %>
-    </div>
+  <%= f.label :status_search %>
+  <%= f.select :status, ['Off','Pending','In motion'],{include_blank: 'Select Box'} %>
 
-   <%= form.submit 'search' %>
-  </div>
+  <%= f.hidden_field :search, value: 'true' %>
+  <%= f.submit 'Search', class: 'btn btn-outline-primary' %>
 <% end %>
-  
 
 
 <% @blogs.each do |blog| %>
- <table>
-<%= blog.title %></h4>
-         
- <p>Title:　<%= blog.title %></p> 
-   <p>Content:　<%= blog.content %></p>                    
- <p>Deadline:　<%= blog.deadline %></p>
-    <p>Status:　<%= blog.status %></p>
-    <p>Priority:　<%= blog.priority %></p>        
+  
+<div width="100%" style="text-align: left;">
+ <p  style="font-family: Impact;">Title:　<%= blog.title %></p> 
+</div>
 
-   <td><%= link_to 'Details', blog_path(blog.id) %></td>
+<div width="100%" style="text-align: center;">
+   <p style="font-family: Impact;">Content:　<%= blog.content %></p>  
+</div>
+
+<div width="100%" style="text-align: right;">
+ <p style="color: rgb(255, 0, 255);">Expiration:　<%= blog.deadline %></p>
+    <p style="color: lime;">Status:　<%= blog.status %></p>
+    <p style="color:green;">Priority:　<%= blog.priority %></p>  
+
+
+   <td><%= link_to t('view.link.blog.Details'), blog_path(blog.id), class: 'btn btn-outline-info' %></td> 
    
   
-    <td><%= link_to link_to "Edit ", edit_blog_path(blog.id) %></td>
-    <td><%= link_to link_to 'Delete ', blog_path(blog.id), method: :delete ,data: {confirm: 'Are you sure?'} %></td>
-    
+    <td><%= link_to link_to t('view.link.blog.Edit'), edit_blog_path(blog.id), class: 'btn btn-outline-info' %></td> 
+    <td><%= link_to link_to t('view.link.blog.Delete'), blog_path(blog.id), method: :delete ,data: {confirm: 'Are you sure?'}, class: 'btn btn-outline-danger' %></td>
+    </div>
   </tr>
+
 <% end %>
  
-</table>
+
 
 
   <br>
 <% if params[:search] != "true" %>
- <%= link_to "Sort by expiration ", blogs_path(sort_expired: "true")  %>
-  <%= link_to "Sort in order of priority", blogs_path(sort_priority: "true") %>
+ <%= link_to t('view.link.task.sort by Expiration'), blogs_path(sort_expired: "true"), class: "btn btn-outline-secondary" %> 
+  <%= link_to t('view.link.task.sort by priority'), blogs_path(sort_priority: "true"), class: "btn btn-outline-secondary" %> 
  
 <% else %>
- <%= link_to 'Display all blogs', blogs_path %>
+ <%= link_to t('view.link.task.display all blogs'), blogs_path,  class: "btn btn-outline-secondary" %>
 <% end %>
 <br>
-<%= paginate @blogs %>
-<%= link_to 'New Post', new_blog_path %>
-<%= t('blog.index') %>
 
-</div>
+<%= link_to t('view.link.task.New post'), new_blog_path, class: "btn btn-outline-secondary" %>
+<%= t('blog.index') %>
+<%= paginate @blogs %>
+
+

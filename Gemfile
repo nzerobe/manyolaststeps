@@ -77,6 +77,8 @@ group :development, :test do
 end
 gem 'will_paginate', '~> 3.1', '>= 3.1.6'
 gem 'kaminari', '~> 0.16.3'
+gem 'kaminari-bootstrap'
+gem 'bootstrap4-kaminari-views', '~> 1.0'
 gem 'pry', '~> 0.12.2'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

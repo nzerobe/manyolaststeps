@@ -1,29 +1,36 @@
 class BlogsController < ApplicationController
   before_action :set_blog, only: [:show, :edit, :update, :destroy] 
- PER = 10
+#  PER = 10
    
-  def index 
-    
-    if params[:search]
-      @blogs = @blogs.search(params[:task][:title], params[:task][:status], params[:task])
-    elsif params[:sort_expired] 
-#     @blogs = Blog.all.sort_deadline.page(params[:page]).per(PER)   
-     @blogs = Blog.page(params[:page]).per(PER).order('deadline ASC')
-    elsif
-#     @blogs = Blog.order('created_at DESC')  
-    @blogs = Blog.page(params[:page]).per(PER).order('created_at DESC')
-    elsif params[:status].present?
-      @blogs = Blog.search_status(params[:status]).page(params[:page]).per(PER)
-       elsif params[:sort_priority].present?
-#       @blogs = Blog.sort_priority.page(params[:page]).per(PER)
-      @blogs = @blogs.order(priority: :desc)
-     else params[:title].present?
-    @blogs = @blogs.page(params[:page]).per(PER)
+
+  def index
+#     @blogs = Blog.order(:last_blog).page(params[:page])
+    if params[:blog] && params[:blog][:search]
+      if params[:blog][:title] == "" && params[:blog][:status] == "" 
+        redirect_to blogs_path
+       
+      elsif params[:blog][:title].present? && params[:blog][:status].present?
+#         @blogs = Blog.title_search(params[:blog][:title]).status_search(params[:blog][:status]).page(params[:page])
+        @blogs = Blog.page(params[:page]).per(3).search_title(params[:blog][:title]).search_status(params[:blog][:status])
+        @blogs = Blog.page(params[:page]).per(3).search_title(params[:blog][:title]).search_status(params[:blog][:status])
+      elsif params[:blog][:title].present?
+#         @blogs = Blog.title_search(params[:blog][:title]).page(params[:page])
+        @blogs = Blog.page(params[:page]).per(3).search_title(params[:blog][:title])
+      elsif params[:blog][:status].present?
+#         @blogs = Blog.status_search(params[:blog][:status]).page(params[:page])
+#          @blogs = Blog.search_status(params[:status]).page(params[:page]).per(PER)
+         @blogs =Blog.page(params[:page]).per(3).search_status(params[:blog][:status])
+       end
+    elsif params[:sort_expired]
+       @blogs = Blog.all.sort_deadline.page(params[:page]).per(PER)
+    elsif params[:sort_priority]
+      @blogs = Blog.order('priority DESC').page(params[:page])
+    else
+      @blogs = Blog.all.order('created_at DESC').page(params[:page])
+#       @blogs = Kaminari.paginate_array(@blogs).page(params[:page]).per(PER)
+#       @blogs = Blog.order(:last_name).page(params[:page])
     end
-    
-    
-  end 
-  
+  end
 
   def new
     @blogs = Blog.new
@@ -67,8 +74,8 @@ class BlogsController < ApplicationController
   private
 
    def blog_params
-     params.require(:blog).permit(:title, :content,  :deadline, :expired_at, :status, :priority,)
-   end
+    params.require(:blog).permit(:title,:content,:deadline,:status,:priority)
+  end
   
   def set_blog
     @blog = Blog.find(params[:id])
