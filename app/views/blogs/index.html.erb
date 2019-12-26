@@ -16,7 +16,7 @@
 
 
 <% @blogs.each do |blog| %>
-  
+
 <div width="100%" style="text-align: left;">
  <p  style="font-family: Impact;">Title:　<%= blog.title %></p> 
 </div>
@@ -38,6 +38,7 @@
     <td><%= link_to link_to t('view.link.blog.Delete'), blog_path(blog.id), method: :delete ,data: {confirm: 'Are you sure?'}, class: 'btn btn-outline-danger' %></td>
     </div>
   </tr>
+
 
 <% end %>
  
