@@ -32,12 +32,14 @@ class BlogsController < ApplicationController
   end
 
   def new
-    @blogs = Blog.new
+#     @blogs = Blog.new
+    @blogs.user_id = current_user.id
   end
   
   def create
-   
+#    @blogs = current_user.blogs.build(blog_params)
     @blogs = Blog.new(blog_params)
+     @blog.user_id = current_user.id
     if @blogs.save
 
       redirect_to blogs_path
