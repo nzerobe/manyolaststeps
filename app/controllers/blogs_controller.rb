@@ -33,13 +33,14 @@ class BlogsController < ApplicationController
 
   def new
 #     @blogs = Blog.new
-    @blogs.user_id = current_user.id
+#     @blogs.user_id = current_user.id
+    @blogs = current_user.blogs.build
   end
   
   def create
-#    @blogs = current_user.blogs.build(blog_params)
+   @blogs = current_user.blogs.build(blog_params)
     @blogs = Blog.new(blog_params)
-     @blog.user_id = current_user.id
+#      @blog.user_id = current_user.id
     if @blogs.save
 
       redirect_to blogs_path
@@ -75,7 +76,7 @@ class BlogsController < ApplicationController
   private
 
    def blog_params
-    params.require(:blog).permit(:title,:content,:deadline,:status,:priority)
+    params.require(:blog).permit(:title,:content,:deadline,:status,:priority,:user_id)
   end
   
   def set_blog

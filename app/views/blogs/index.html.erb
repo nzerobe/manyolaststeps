@@ -16,7 +16,8 @@
 
 
 <% @blogs.each do |blog| %>
-<% if current_user.id == blog.user_id %>
+ <% if logged_in? %>
+ <% if blog.user_id == current_user.id %>
 <div width="100%" style="text-align: left;">
  <p  style="font-family: Impact;">Title:　<%= blog.title %></p> 
 </div>
@@ -41,7 +42,7 @@
 
 <% end %>
 <% end %>
- 
+ <% end %>
 
 
 
