@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="index-box">
+    <h1>ユーザー一覧</h1>
+
+    <div class="index-menus">
+      <%= link_to "ユーザー登録", new_admin_user_path ,class: "new_blog_btn" %> 
+    </div>
+
+    <table border="1">
+      <tr>
+        <th id="name">Name</th>
+        <th id="email">Email</th>
+        <th id="admin">Functions</th>
+        <th id="created">Date Created</th>
+        <th id="updated">Date Updated</th>
+        <th id="count_blogs">Number Of Registered Blogs</th>
+        <th id="blog-menu" colspan="3">メニュー</th>
+      </tr>
+
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.name %></td>
+          <td><%= user.email %></td>
+          <td><%= user.admin? ? 'Administrator' : '' %></td>
+          <td><%= user.created_at %></td>
+          <td><%= user.updated_at %></td>
+          <td><%= user.blogs.count %></td>
+
+          <td>
+            <%= link_to  'Details', admin_user_path(user.id), method: :get %>
+            <%= link_to 'Edit', edit_admin_user_path(user.id), method: :get %>
+            <% if user.admin? %>
+               <div class="disabled-delete" ></div>
+            <% else %>
+              <%= link_to 'Delete', admin_user_path(user), class: "delete_link", method: :delete, data: { confirm: '本当に削除してもいいですか?' } %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
