@@ -31,11 +31,11 @@ div class="container">
       <% unless @user.blogs.empty? %>
         <table border="1">
           <tr>
-            <th id="title">タイトル</th>
-            <th id="content">内容</th>
-            <th id="deadline">終了期限</th>
-            <th id="status">ステータス</th>
-            <th id="priority">優先順位</th>
+            <th id="title">Title</th>
+            <th id="content">Content</th>
+            <th id="deadline">Deadline</th>
+            <th id="status">Status</th>
+            <th id="priority">Priority</th>
           </tr>
 
           <% @user.blogs.each do |blog| %>
@@ -49,7 +49,7 @@ div class="container">
           <% end %>
         </table>
       <% else %>
-        <p>タスクはありません</p>
+        <p>No Blog</p>
       <% end %>
     </div>
   </div>

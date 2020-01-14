@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
- 
+   before_action :authenticate_user, only: [:show]
+#    before_action :ensure_correct_user, only: [:show]
+  before_action :set_user, only: [:show]
   
   def new
     if logged_in?
@@ -21,16 +23,33 @@ class UsersController < ApplicationController
     end
   end
   
- def show
-    @user = User.find(params[:id])
+#  def show
+#     @user = User.find(params[:id])
+#   end
+ 
+   def show
+    if current_user == User.find(params[:id])
+      @user = User.find(params[:id])
+    else
+      redirect_to(blogs_path, danger:"Not Your Page!!!")
+    end
   end
-    
+  
+  
     
      private
 
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+  
+  
   def user_params
     params.require(:user).permit(:name, :email, :password,
                                  :password_confirmation)
   end
+  
+ 
   
 end
