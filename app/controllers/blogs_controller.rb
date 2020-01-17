@@ -1,5 +1,6 @@
 class BlogsController < ApplicationController
   before_action :set_blog, only: [:show, :edit, :update, :destroy] 
+  before_action :first_login
 #  PER = 10
    
 
@@ -81,6 +82,7 @@ class BlogsController < ApplicationController
   def set_blog
     @blog = Blog.find(params[:id])
   end
+  
   
 end  
 

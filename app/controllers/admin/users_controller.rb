@@ -1,7 +1,9 @@
 class Admin::UsersController < ApplicationController
+#   before_action:require_admin
+  before_action:first_login
+  before_action:set_user, only:[:edit,:update,:destroy,:show]
   before_action :admin_required
   before_action :prohibited_admin_destroy, only: [:destroy]
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   PER = 10
 
@@ -17,6 +19,7 @@ class Admin::UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       redirect_to admin_users_path(@user.id), notice: "Registered 【#{@user.name}】User"
+      
     else
       render "new"
     end
@@ -35,17 +38,7 @@ class Admin::UsersController < ApplicationController
     end
   end
   
-#   def update
-#     respond_to do |format|
-#       if @user.update(user_params)
-#         format.html { redirect_to @user, notice: 'User was successfully updated.' }
-#         format.json { render :show, status: :ok, location: @user }
-#       else
-#         format.html { render :edit }
-#         format.json { render json: @user.errors, status: :unprocessable_entity }
-#       end
-#     end
-#   end
+
 
   def destroy
     @user.destroy
@@ -78,4 +71,9 @@ class Admin::UsersController < ApplicationController
       end
     end
   end
+  
+#   def require_admin
+#       raise Forbidden unless current_user.admin?
+#   end
+  
 end

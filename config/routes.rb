@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     get 'users/new'
     get 'users/show'
   end
-  root to: 'sessions#new'
+  root to: 'blogs#index'
   resources :blogs
  
   resources :blogs, only: [:new, :create, :edit, :destroy]

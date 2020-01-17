@@ -23,9 +23,6 @@ class UsersController < ApplicationController
     end
   end
   
-#  def show
-#     @user = User.find(params[:id])
-#   end
  
    def show
     if current_user == User.find(params[:id])
