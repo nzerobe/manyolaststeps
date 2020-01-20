@@ -40,7 +40,7 @@ end
     visit new_session_path
     fill_in 'Email',with: "adminnn@gmail.com"
     fill_in "Password",with: "admin0011"
-    click_button 'Logout'
+    click_button 'Log out'
 #     click_on 'Log Out'
     expect(page).to have_content "Logged out"
   end
