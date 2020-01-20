@@ -40,12 +40,23 @@ end
     visit new_session_path
     fill_in 'Email',with: "adminnn@gmail.com"
     fill_in "Password",with: "admin0011"
-    click_button 'Log out'
-#     click_on 'Log Out'
-    expect(page).to have_content "Logged out"
+#     click_button ''
+    click_on "Log Out"
+    expect(page).to have_content "You Logged Out"
   end
   
+  scenario "Testing user creation" do
+    visit admin_users_path
 
+    expect(page ).to have_content "Create User"
+  end
+
+   scenario "Test user details" do
+   @user= User.create!(name: 'ines00', email: 'iines00@ines.com', admin: 'true', password: 'ines00@ines.com')
+   visit admin_user_path(id: @user.id)
+   expect(page).to have_content('Login User')
+   expect(page).to have_content('true')
+ end
   
   
   
